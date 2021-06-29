@@ -24,16 +24,44 @@ Moved to settings_.
 Basic Commands
 --------------
 
+Running the app locally
+^^^^^^^^^^^^^^^^^^^^^
+
+* To run the app locally. This will automagically restart for you when you make changes::
+
+    $ docker compose --file=local.yml up
+
+This will capture your console with logs as well.
+
 Setting Up Your Users
 ^^^^^^^^^^^^^^^^^^^^^
 
 * To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
 
-* To create an **superuser account**, use this command::
+* To create an **superuser account**, use this command in a separate console::
 
-    $ python manage.py createsuperuser
+    $ docker compose --file=local.yml run django python manage.py createsuperuser
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+In your console that is running `dc up` you'll see a message similar to the following::
+
+    django      | Content-Type: text/plain; charset="utf-8"
+    django      | MIME-Version: 1.0
+    django      | Content-Transfer-Encoding: 7bit
+    django      | Subject: [PRA Request Tracker] Please Confirm Your E-mail Address
+    django      | From: webmaster@localhost
+    django      | To: admin@example.com
+    django      | Date: Tue, 29 Jun 2021 17:35:16 -0000
+    django      | Message-ID: <162498811644.12.3635293736420768765@2190a548b587>
+    django      | 
+    django      | Hello from PRA Request Tracker!
+    django      | 
+    django      | You're receiving this e-mail because user admin has given your e-mail address to register an account on twitter.com/TechBlocSEA.
+    django      | 
+    django      | To confirm this is correct, go to http://localhost:8000/accounts/confirm-email/MQ:1lyHdk:Td8HDxKa67J4uKIZdVlx6YsisvdjMS8Psjz95e94Yuw/
+    django      | 
+    django      | Thank you for using PRA Request Tracker!
+    django      | twitter.com/TechBlocSEA
+    django      | ------------------------------------------------------------------------------
 
 Type checks
 ^^^^^^^^^^^

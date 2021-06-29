@@ -1,0 +1,22 @@
+name: Test
+
+on: pull_request
+
+jobs:
+  mypy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      -
+        name: Run mypy
+        run: docker-compose --file=local.yml run django mypy pra_request_tracker
+
+  pytest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      -
+        name: Run pytest
+        run: docker-compose --file=local.yml run django coverage run -m pytest

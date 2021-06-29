@@ -41,13 +41,13 @@ django      | From: webmaster@localhost
 django      | To: admin@example.com
 django      | Date: Tue, 29 Jun 2021 17:35:16 -0000
 django      | Message-ID: <162498811644.12.3635293736420768765@2190a548b587>
-django      | 
+django      |
 django      | Hello from PRA Request Tracker!
-django      | 
+django      |
 django      | You're receiving this e-mail because user admin has given your e-mail address to register an account on twitter.com/TechBlocSEA.
-django      | 
+django      |
 django      | To confirm this is correct, go to http://localhost:8000/accounts/confirm-email/MQ:1lyHdk:Td8HDxKa67J4uKIZdVlx6YsisvdjMS8Psjz95e94Yuw/
-django      | 
+django      |
 django      | Thank you for using PRA Request Tracker!
 django      | twitter.com/TechBlocSEA
 django      | ------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ to view the logs for just the django service after you have successfully run the
 
 Just do it through the website's UI and check for the email as described in the previous section. Follow the same process to confirm the email on the account.
 
-### Running type checks 
+### Running type checks
 
 ```bash
 docker compose --file=local.yml run django mypy pra_request_tracker

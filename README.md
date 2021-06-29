@@ -24,7 +24,13 @@ With the app running in a separate terminal, run the following:
 docker compose --file=local.yml run django python manage.py createsuperuser
 ```
 
-Follow the directions in your console. Then switch to your logs and find the `django` service's output with the email, it will look something like this:
+Follow the directions in your console to create the super user. Once you have filled out the information required and the console has output `Superuser created successfully.` you will now need to login to the web console. Once you log in the system will attempt to send you a verification email, which won't make it out of the local system. You'll need to switch to your other tab where you ran
+
+```bash
+docker compose --file=local.yml up
+```
+
+previously and look in the log stream and find the `django` service's output with the email, it will look something like this:
 
 ```
 django      | Content-Type: text/plain; charset="utf-8"
@@ -50,6 +56,14 @@ django      | ------------------------------------------------------------------
 Copy the link into your browser to confirm the account. Then you'll be able to log into the account.
 
 Access the django admin as usual by navigating to `localhost:8000/admin`.
+
+Alternatively you can run
+
+```bash
+docker compose --file=local.yml logs django
+```
+
+to view the logs for just the django service after you have successfully run the createsuperuser command.
 
 ### Creating any other type of user
 

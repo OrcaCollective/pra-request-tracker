@@ -1,0 +1,35 @@
+name: Lint and Test
+
+on: pull_request
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - name: Install Dependencies
+        run: pip install -r requirements/local.txt
+      - name: Run pre-commit checks
+        run: pre-commit run --all-files
+
+  mypy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      -
+        name: Run mypy
+        run: docker-compose --file=local.yml run django mypy pra_request_tracker
+
+  pytest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      -
+        name: Run pytest
+        run: docker-compose --file=local.yml run django coverage run -m pytest

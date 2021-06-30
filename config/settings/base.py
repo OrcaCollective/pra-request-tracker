@@ -72,6 +72,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "pra_request_tracker.users.apps.UsersConfig",
+    "pra_request_tracker.foia.apps.FoiaConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

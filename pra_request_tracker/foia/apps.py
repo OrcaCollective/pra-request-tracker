@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class FoiaConfig(AppConfig):
-    name = "foia"
+    name = "pra_request_tracker.foia"

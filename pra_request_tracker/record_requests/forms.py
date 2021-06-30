@@ -16,11 +16,11 @@ class RecordRequestForm(forms.ModelForm):
     class Meta:
         model = RecordRequest
 
-        fields = ("requester", "title", "description", "agency", "status")
+        fields = ("requester", "agency", "title", "description", "status")
 
 
 class RecordRequestFileForm(forms.ModelForm):
     class Meta:
         model = RecordRequestFile
 
-        fields = ("request", "file", "description")
+        fields = ("request", "title", "description", "file")

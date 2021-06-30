@@ -49,7 +49,7 @@ class RecordRequest(BaseModel):
     title = models.CharField(max_length=256)
 
     def __str__(self):
-        return f"RecordRequest({self.id}) to {self.agency}"
+        return f"RecordRequest({self.id}) {self.title} to {self.agency} with status {self.status}"
 
     def delete(self):
         """
@@ -64,7 +64,8 @@ class RecordRequestFile(BaseModel):
         on_delete=models.CASCADE,
     )
     file = models.FileField()
+    title = models.CharField(max_length=256)
     description = models.TextField(null=True)
 
     def __str__(self):
-        return f"RecordRequestFile({self.id}) for {self.request}"
+        return f"RecordRequestFile({self.id}) {self.title} for {self.request}"

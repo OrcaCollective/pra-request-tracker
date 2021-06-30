@@ -329,3 +329,5 @@ pra_request_tracker/media/
 .env
 .envs/*
 !.envs/.local/
+
+media/*

@@ -1,7 +1,15 @@
 from django import forms
 
+from pra_request_tracker.record_requests.models import Agency
 from pra_request_tracker.record_requests.models import RecordRequest
 from pra_request_tracker.record_requests.models import RecordRequestFile
+
+
+class AgencyForm(forms.ModelForm):
+    class Meta:
+        model = Agency
+
+        fields = ("name",)
 
 
 class RecordRequestForm(forms.ModelForm):
@@ -15,4 +23,4 @@ class RecordRequestFileForm(forms.ModelForm):
     class Meta:
         model = RecordRequestFile
 
-        fields = ("request", "url", "description")
+        fields = ("request", "file", "description")

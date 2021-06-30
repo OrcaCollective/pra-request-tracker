@@ -3,12 +3,15 @@ from django.db import models
 from pra_request_tracker.users.models import User
 
 
-class BaseModel:
+class BaseModel(models.Model):
+    class Meta:
+        abstract = True
+
     updated_at = models.DateTimeField(editable=False, auto_now=True)
     created_at = models.DateTimeField(editable=False, auto_now_add=True)
 
 
-class Agency(BaseModel, models.Model):
+class Agency(BaseModel):
     class Meta:
         verbose_name_plural = "Agencies"
 
@@ -24,7 +27,7 @@ class Agency(BaseModel, models.Model):
         pass
 
 
-class RecordRequest(BaseModel, models.Model):
+class RecordRequest(BaseModel):
     class Status(models.TextChoices):
         SUBMITTED = "submitted", "Processing"
         AWAITING_ACKNOWLEDGEMENT = "ack", "Awaiting Acknowledgement"
@@ -55,7 +58,7 @@ class RecordRequest(BaseModel, models.Model):
         pass
 
 
-class RecordRequestFile(BaseModel, models.Model):
+class RecordRequestFile(BaseModel):
     request = models.ForeignKey(
         RecordRequest,
         on_delete=models.CASCADE,

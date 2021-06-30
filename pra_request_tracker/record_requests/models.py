@@ -21,20 +21,32 @@ class Agency(models.Model):
 
 class RecordRequest(models.Model):
     class Status(models.TextChoices):
-        OPENED = "opened", "opened"
-        PENDING = "pending", "pending"
-        SENT = "sent", "sent"
-        CLOSED = "closed", "closed"
+        SUBMITTED = "submitted", "Processing"
+        AWAITING_ACKNOWLEDGEMENT = "ack", "Awaiting Acknowledgement"
+        PROCESSED = "processed", "Awaiting Response"
+        APPEALING = "appealing", "Awaiting Apeal"
+        FIX = "fix", "Fix Required"
+        PAYMENT = "payment", "Payment Required"
+        LAWSUIT = "lawsuit", "In Litigation"
+        REJECTED = "rejected", "Rejected"
+        NO_DOCS = "no_docs", "No Responsive Documents"
+        DONE = "done", "Completed"
+        PARTIAL = "partial", "Partially Completed"
+        ABANDONED = "abandoned", "Withdrawn"
 
     requester = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     description = models.TextField()
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
-    status = models.CharField(
-        max_length=10, choices=Status.choices, default=Status.OPENED
-    )
+    status = models.CharField(max_length=10, choices=Status.choices, db_index=True)
 
     def __str__(self):
         return f"RecordRequest({self.id}) to {self.agency}"
+
+    def delete(self):
+        """
+        Deleteing a request shouldn't be possible. Instead change the status.
+        """
+        pass
 
 
 class RecordRequestFile(models.Model):

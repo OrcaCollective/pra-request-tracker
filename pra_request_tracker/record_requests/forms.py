@@ -16,7 +16,7 @@ class RecordRequestForm(forms.ModelForm):
     class Meta:
         model = RecordRequest
 
-        fields = ("requester", "description", "agency")
+        fields = ("requester", "description", "agency", "status")
 
 
 class RecordRequestFileForm(forms.ModelForm):

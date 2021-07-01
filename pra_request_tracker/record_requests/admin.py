@@ -1,11 +1,11 @@
 from django.contrib import admin  # noqa
 
-from pra_request_tracker.record_requests.models import Agency
-from pra_request_tracker.record_requests.models import RecordRequest
-from pra_request_tracker.record_requests.models import RecordRequestFile
-from pra_request_tracker.record_requests.forms import AgencyForm
-from pra_request_tracker.record_requests.forms import RecordRequestForm
-from pra_request_tracker.record_requests.forms import RecordRequestFileForm
+from .models import Agency
+from .models import RecordRequest
+from .models import RecordRequestFile
+from .forms import AgencyForm
+from .forms import RecordRequestForm
+from .forms import RecordRequestFileForm
 
 
 @admin.register(Agency)

@@ -1,8 +1,8 @@
 from django import forms
 
-from pra_request_tracker.record_requests.models import Agency
-from pra_request_tracker.record_requests.models import RecordRequest
-from pra_request_tracker.record_requests.models import RecordRequestFile
+from .models import Agency
+from .models import RecordRequest
+from .models import RecordRequestFile
 
 
 class AgencyForm(forms.ModelForm):

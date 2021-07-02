@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 
 from pra_request_tracker.users.models import User
 
@@ -15,9 +16,10 @@ class Agency(BaseModel):
     class Meta:
         verbose_name_plural = "Agencies"
 
-    name = models.CharField(max_length=256, unique=True)
+    name = models.CharField(max_length=256, unique=True, db_index=True)
 
     def __str__(self):
+        print(dir(self))
         return f"Agency({self.id}) {self.name}"
 
     def delete(self):
@@ -56,6 +58,14 @@ class RecordRequest(BaseModel):
         Deleteing a request shouldn't be possible. Instead change the status.
         """
         pass
+
+    @property
+    def status_label(self):
+        return self.Status(self.status).label
+
+    @cached_property
+    def files(self):
+        return self.recordrequestfile_set.all()
 
 
 class RecordRequestFile(BaseModel):

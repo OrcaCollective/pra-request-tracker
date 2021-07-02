@@ -1,4 +1,6 @@
-DC = docker compose --file=local.yml
+DOCKER_COMPOSE ?= docker compose
+FILE ?= local.yml
+DC = $(DOCKER_COMPOSE) --file=$(FILE)
 RUN = $(DC) run --rm
 DJANGO = django
 MANAGE = $(RUN) $(DJANGO) python manage.py

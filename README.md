@@ -21,7 +21,7 @@ You can access the app at `localhost:8000`.
 With the app running in a separate terminal, run the following:
 
 ```bash
-docker compose --file=local.yml run django python manage.py createsuperuser
+docker compose --file=local.yml run --rm django python manage.py createsuperuser
 ```
 
 Follow the directions in your console to create the super user. Once you have filled out the information required and the console has output `Superuser created successfully.` you will now need to login to the web console. Once you log in the system will attempt to send you a verification email, which won't make it out of the local system. You'll need to switch to your other tab where you ran
@@ -72,14 +72,14 @@ Just do it through the website's UI and check for the email as described in the 
 ### Running type checks
 
 ```bash
-docker compose --file=local.yml run django mypy pra_request_tracker
+docker compose --file=local.yml run --rm django mypy pra_request_tracker
 ```
 
 ### Running unit tests
 
 ```bash
-docker compose --file=local.yml run django coverage run -m pytest
-docker compose --file=local.yml run django coverage html
+docker compose --file=local.yml run --rm django coverage run -m pytest
+docker compose --file=local.yml run --rm django coverage html
 open htmlcov/index.html
 ```
 

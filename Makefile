@@ -5,6 +5,7 @@ RUN = $(DC) run --rm
 DJANGO = django
 MANAGE = $(RUN) $(DJANGO) python manage.py
 
+
 shell:
 	$(MANAGE) shell
 
@@ -32,7 +33,15 @@ createsuperuser:
 	$(MANAGE) createsuperuser
 
 
-freshstart: down build up
+rebuild:
+	$(MAKE) down
+	$(MAKE) up
+
+
+freshstart:
+	$(DC) down -v
+	$(MAKE) build
+	$(MAKE) up
 
 
 makemigrations:

@@ -33,9 +33,7 @@ createsuperuser:
 	$(MANAGE) createsuperuser
 
 
-rebuild:
-	$(MAKE) down
-	$(MAKE) up
+rebuild: down build up
 
 
 freshstart:

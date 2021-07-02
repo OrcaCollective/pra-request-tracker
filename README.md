@@ -4,7 +4,14 @@
 
 ### Install
 
-First, initialize the repository's local environment:
+First, initialize the repository's local environment. To do this you probably want to create a virtual environment first:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Then to install dependencies and initalize tooling:
 
 ```bash
 make install

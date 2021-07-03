@@ -14,7 +14,17 @@ class AgencyForm(forms.ModelForm):
 class RecordRequestForm(forms.ModelForm):
     class Meta:
         model = RecordRequest
-        fields = ("requester", "agency", "title", "description", "status")
+        fields = (
+            "requester",
+            "agency",
+            "title",
+            "description",
+            "status",
+            "tracking_number",
+            "filed_at",
+            "estimated_response_date",
+            "last_communication_date",
+        )
 
 
 class RecordRequestFileForm(forms.ModelForm):

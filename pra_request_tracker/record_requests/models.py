@@ -43,12 +43,18 @@ class RecordRequest(BaseModel):
         DONE = "done", "Completed"
         PARTIAL = "partial", "Partially Completed"
         ABANDONED = "abandoned", "Withdrawn"
+        IN_REVIEW = "review", "In Review"
+        INSTALLMENTS = "install", "Installments"
 
     requester = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     description = models.TextField()
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=Status.choices, db_index=True)
     title = models.CharField(max_length=256)
+    tracking_number = models.CharField(max_length=256, db_index=True, null=True)
+    filed_at = models.DateField(null=True)
+    estimated_response_date = models.DateField(null=True)
+    last_communication_date = models.DateField(null=True)
 
     def __str__(self):
         return f"RecordRequest({self.id}) {self.title} to {self.agency} with status {self.status}"

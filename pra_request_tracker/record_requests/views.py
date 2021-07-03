@@ -18,3 +18,4 @@ class AgencyDetailView(LoginRequiredMixin, DetailView):
 
 class RecordRequestDetailView(LoginRequiredMixin, DetailView):
     model = RecordRequest
+    queryset = RecordRequest.objects.prefetch_related("recordrequestfile_set")

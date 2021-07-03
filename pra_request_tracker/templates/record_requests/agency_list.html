@@ -14,12 +14,27 @@
 
   <div class="row">
     <div class="col-sm-12">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Number of requests</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for agency in object_list %}
+            <tr>
+              <td>
+                <a href="{% url 'record_requests:agency-detail' name=agency.name %}">{{ agency.name }}</a>
+              </td>
+              <td>
+                {{ agency.request_count }}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
       <ul>
-        {% for agency in object_list %}
-          <li>
-            <a href="{% url 'record_requests:agency-detail' name=agency.name %}">{{ agency.name }}</a>
-          </li>
-        {% endfor %}
       </ul>
     </div>
   </div>

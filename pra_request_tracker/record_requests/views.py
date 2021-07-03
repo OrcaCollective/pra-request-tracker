@@ -7,6 +7,7 @@ from .models import Agency, RecordRequest
 
 class AgencyListView(LoginRequiredMixin, ListView):
     model = Agency
+    queryset = Agency.objects.prefetch_related("recordrequest_set")
 
 
 class AgencyDetailView(LoginRequiredMixin, DetailView):

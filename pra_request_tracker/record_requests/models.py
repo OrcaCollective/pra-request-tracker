@@ -19,7 +19,6 @@ class Agency(BaseModel):
     name = models.CharField(max_length=256, unique=True, db_index=True)
 
     def __str__(self):
-        print(dir(self))
         return f"Agency({self.id}) {self.name}"
 
     def delete(self):
@@ -27,6 +26,10 @@ class Agency(BaseModel):
         Deleting an Agency shouldn't be possible
         """
         pass
+
+    @cached_property
+    def request_count(self):
+        return self.recordrequest_set.count()
 
 
 class RecordRequest(BaseModel):

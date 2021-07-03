@@ -22,16 +22,18 @@
       <strong>Last communication:</strong> {{ object.last_communication_date }}
       <p>{{ object.description }}</p>
 
-      {% if object.files %}
-        <strong>Attachments:</strong>
+      {% if if request.user.is_authenticated %}
+        {% if object.files %}
+          <strong>Attachments:</strong>
+        {% endif %}
+        {% for file in object.files %}
+          <ul>
+            <li>
+              <a href="{{ file.file }}">{{ file.title }}</a>
+            </li>
+          </ul>
+        {% endfor %}
       {% endif %}
-      {% for file in object.files %}
-        <ul>
-          <li>
-            <a href="{{ file.file }}">{{ file.title }}</a>
-          </li>
-        </ul>
-      {% endfor %}
     </div>
   </div>
 

@@ -7,7 +7,10 @@ from ..models import Agency, RecordRequestFile
 from ..models import RecordRequest
 
 
-@pytest.mark.django_db(transaction=True)
+transactional_db = pytest.mark.django_db(transaction=True)
+
+
+@transactional_db
 def test_agency_request_count():
     agency = AgencyFactory.create()
 
@@ -17,7 +20,7 @@ def test_agency_request_count():
     assert agency.request_count == 2
 
 
-@pytest.mark.django_db(transaction=True)
+@transactional_db
 def test_agency_delete():
     agency = AgencyFactory.create()
     pk = agency.pk
@@ -27,7 +30,7 @@ def test_agency_delete():
     assert Agency.objects.filter(pk=pk).first() is not None
 
 
-@pytest.mark.django_db(transaction=True)
+@transactional_db
 def test_record_request_status_label():
     status = RecordRequest.Status.INSTALLMENTS
     record_request = RecordRequestFactory.create(status=str(status))
@@ -35,7 +38,7 @@ def test_record_request_status_label():
     assert record_request.status_label == status.label
 
 
-@pytest.mark.django_db(transaction=True)
+@transactional_db
 def test_record_requeset_delete():
     record_request = RecordRequestFactory.create()
     pk = record_request.pk
@@ -46,7 +49,7 @@ def test_record_requeset_delete():
     assert RecordRequest.objects.filter(pk=pk).first() is not None
 
 
-@pytest.mark.django_db(transaction=True)
+@transactional_db
 def test_record_request_files():
     record_request = RecordRequestFactory.create()
 
@@ -57,7 +60,7 @@ def test_record_request_files():
     assert files == list(record_request.files)
 
 
-@pytest.mark.django_db(transaction=True)
+@transactional_db
 def test_record_request_file_delete():
     file = RecordRequestFileFactory.create()
     pk = file.pk

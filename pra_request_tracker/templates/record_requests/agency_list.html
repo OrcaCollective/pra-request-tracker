@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Agencies{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-12">
+	    <h1>Agencies</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      {% for agency in object_list %}
+        <p>
+          <a href="{% url 'record_requests:agency-detail' name=agency.name %}">{{ agency.name }}</a>
+        </p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

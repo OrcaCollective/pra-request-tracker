@@ -17,4 +17,3 @@ class AgencyDetailView(DetailView):
 
 class RecordRequestDetailView(DetailView):
     model = RecordRequest
-    queryset = RecordRequest.objects.prefetch_related("recordrequestfile_set")

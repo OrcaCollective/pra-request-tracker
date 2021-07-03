@@ -25,7 +25,7 @@ class Agency(BaseModel):
         """
         Deleting an Agency shouldn't be possible
         """
-        pass
+        raise NotImplementedError("Deleting Agencies not allowed")
 
     @cached_property
     def request_count(self):
@@ -66,7 +66,7 @@ class RecordRequest(BaseModel):
         """
         Deleteing a request shouldn't be possible. Instead change the status.
         """
-        pass
+        raise NotImplementedError("Deleting RecordRequests not allowed")
 
     @property
     def status_label(self):

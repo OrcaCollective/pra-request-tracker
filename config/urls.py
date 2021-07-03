@@ -14,6 +14,12 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("pra_request_tracker.users.urls", namespace="users")),
+    path(
+        "record-requests/",
+        include(
+            "pra_request_tracker.record_requests.urls", namespace="record_requests"
+        ),
+    ),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

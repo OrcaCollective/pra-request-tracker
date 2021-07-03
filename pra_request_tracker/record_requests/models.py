@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 
 from pra_request_tracker.users.models import User
 
@@ -15,7 +16,7 @@ class Agency(BaseModel):
     class Meta:
         verbose_name_plural = "Agencies"
 
-    name = models.CharField(max_length=256, unique=True)
+    name = models.CharField(max_length=256, unique=True, db_index=True)
 
     def __str__(self):
         return f"Agency({self.id}) {self.name}"
@@ -25,6 +26,10 @@ class Agency(BaseModel):
         Deleting an Agency shouldn't be possible
         """
         pass
+
+    @cached_property
+    def request_count(self):
+        return self.recordrequest_set.count()
 
 
 class RecordRequest(BaseModel):
@@ -41,12 +46,18 @@ class RecordRequest(BaseModel):
         DONE = "done", "Completed"
         PARTIAL = "partial", "Partially Completed"
         ABANDONED = "abandoned", "Withdrawn"
+        IN_REVIEW = "review", "In Review"
+        INSTALLMENTS = "install", "Installments"
 
     requester = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     description = models.TextField()
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=Status.choices, db_index=True)
     title = models.CharField(max_length=256)
+    tracking_number = models.CharField(max_length=256, db_index=True, null=True)
+    filed_at = models.DateField(null=True)
+    estimated_response_date = models.DateField(null=True)
+    last_communication_date = models.DateField(null=True)
 
     def __str__(self):
         return f"RecordRequest({self.id}) {self.title} to {self.agency} with status {self.status}"
@@ -56,6 +67,14 @@ class RecordRequest(BaseModel):
         Deleteing a request shouldn't be possible. Instead change the status.
         """
         pass
+
+    @property
+    def status_label(self):
+        return self.Status(self.status).label
+
+    @cached_property
+    def files(self):
+        return self.recordrequestfile_set.all()
 
 
 class RecordRequestFile(BaseModel):

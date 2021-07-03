@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Agency: {{ object.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-12">
+	    <h1>Requests for {{ object.name }}</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Status</th>
+            <th scope="col">Tracking #</th>
+            <th scope="col">Filed on</th>
+            <th scope="col">Estimated response date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record_request in object.recordrequest_set.all %}
+            <tr>
+              <td>
+                <a href="{% url 'record_requests:request-detail' record_request.pk %}">{{ record_request.title }}</a>
+              </td>
+              <td>{{ record_request.status_label }}</td>
+              <td>{{ record_request.tracking_number }}</td>
+              <td>{{ record_request.filed_at }}</td>
+              <td>{{ record_request.estimated_response_date }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}

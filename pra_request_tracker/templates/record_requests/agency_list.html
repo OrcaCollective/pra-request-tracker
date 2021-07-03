@@ -14,11 +14,13 @@
 
   <div class="row">
     <div class="col-sm-12">
-      {% for agency in object_list %}
-        <p>
-          <a href="{% url 'record_requests:agency-detail' name=agency.name %}">{{ agency.name }}</a>
-        </p>
-      {% endfor %}
+      <ul>
+        {% for agency in object_list %}
+          <li>
+            <a href="{% url 'record_requests:agency-detail' name=agency.name %}">{{ agency.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
 </div>

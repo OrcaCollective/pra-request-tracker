@@ -1,3 +1,4 @@
+from typing import Any
 from django.test import TestCase
 from django.test import RequestFactory
 
@@ -8,7 +9,7 @@ from ..views import AgencyListView
 
 
 class ViewTestCase(TestCase):
-    view_cls = None
+    view_cls: Any
 
     def setUp(self):
         super().setUp()

@@ -1,4 +1,15 @@
-DOCKER_COMPOSE ?= docker compose
+ifeq ($(OS),Windows_NT)
+    detected_OS := Windows
+else
+    detected_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
+endif
+
+ifeq ($(detected_OS), Linux)
+	DOCKER_COMPOSE ?= docker-compose
+else
+	DOCKER_COMPOSE ?= docker compose
+endif
+
 FILE ?= local.yml
 DC = $(DOCKER_COMPOSE) --file=$(FILE)
 RUN = $(DC) run --rm

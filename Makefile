@@ -22,22 +22,22 @@ MANAGE = $(RUN) $(DJANGO) python manage.py
 
 
 .PHONY: shell
-shell:
+shell: .env
 	$(MANAGE) shell
 
 
 .PHONY: logs
-logs:
+logs: .env
 	$(DC) logs -f $(DJANGO)
 
 
 .PHONY: down
-down:
+down: .env
 	$(DC) down
 
 
 .PHONY: up
-up:
+up: .env
 	$(DC) up -d
 
 
@@ -46,12 +46,12 @@ restart: down up
 
 
 .PHONY: build
-build:
+build: .env
 	$(DC) build
 
 
 .PHONY: createsuperuser
-createsuperuser:
+createsuperuser: .env
 	$(MANAGE) createsuperuser
 
 
@@ -60,29 +60,29 @@ rebuild: down build up
 
 
 .PHONY: freshstart
-freshstart:
+freshstart: .env
 	$(DC) down -v
 	$(MAKE) build
 	$(MAKE) up
 
 
 .PHONY: makemigrations
-makemigrations:
+makemigrations: .env
 	$(MANAGE) makemigrations
 
 
 .PHONY: migration
-migrate:
+migrate: .env
 	$(MANAGE) migrate
 
 
 .PHONY: types
-types:
+types: .env
 	$(RUN) $(DJANGO) mypy pra_request_tracker
 
 
 .PHONY: test
-test:
+test: .env
 	$(RUN) $(DJANGO) coverage run -m pytest
 
 

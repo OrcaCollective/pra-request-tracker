@@ -22,9 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       -
-        name: Make .env
-        run: make .env
-      -
         name: Run mypy
         run: make types
 
@@ -33,9 +30,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      -
-        name: Make .env
-        run: make .env
       -
         name: Run pytest
         run: make test

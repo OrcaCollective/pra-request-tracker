@@ -18,9 +18,7 @@ services:
     volumes:
       - .:/app:z
     env_file:
-      - ./.envs/.local/.django
-      - ./.envs/.local/.postgres
-      - ./.envs/.local/.minio
+      - .env
     ports:
       - "8000:8000"
     command: /start
@@ -35,7 +33,7 @@ services:
       - local_postgres_data:/var/lib/postgresql/data:Z
       - local_postgres_data_backups:/backups:z
     env_file:
-      - ./.envs/.local/.postgres
+      - .env
 
   docs:
     image: pra_request_tracker_local_docs
@@ -44,7 +42,7 @@ services:
       context: .
       dockerfile: ./compose/local/docs/Dockerfile
     env_file:
-      - ./.envs/.local/.django
+      - .env
     volumes:
       - ./docs:/docs:z
       - ./config:/app/config:z
@@ -60,7 +58,7 @@ services:
     ports:
       - "9000:9000"
     env_file:
-       - ./.envs/.local/.minio
+       - .env
     environment:
       MINIO_ROOT_USER: minio
     command: server /data
@@ -73,7 +71,7 @@ services:
   createbucket:
     image: minio/mc
     env_file:
-       - ./.envs/.local/.minio
+       - .env
     depends_on:
       - minio
     # Add the desired bucket, and set its policy to public

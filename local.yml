@@ -3,6 +3,7 @@ version: '3'
 volumes:
   local_postgres_data: {}
   local_postgres_data_backups: {}
+  minio: {}
 
 services:
   django:
@@ -13,11 +14,13 @@ services:
     container_name: django
     depends_on:
       - postgres
+      - minio
     volumes:
       - .:/app:z
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
+      - ./.envs/.local/.minio
     ports:
       - "8000:8000"
     command: /start
@@ -49,3 +52,35 @@ services:
     ports:
       - "7000:7000"
     command: /start-docs
+
+  minio:
+    image: minio/minio
+    volumes:
+      - minio:/data
+    ports:
+      - "9000:9000"
+    env_file:
+       - ./.envs/.local/.minio
+    environment:
+      MINIO_ROOT_USER: minio
+    command: server /data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  createbucket:
+    image: minio/mc
+    env_file:
+       - ./.envs/.local/.minio
+    depends_on:
+      - minio
+    # Add the desired bucket, and set its policy to public
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc config host add myminio http://minio:9000 minio ${MINIO_ROOT_PASSWORD};
+      /usr/bin/mc mb myminio/${AWS_STORAGE_BUCKET_NAME};
+      /usr/bin/mc policy set public myminio/${AWS_STORAGE_BUCKET_NAME};
+      exit 0;
+      "

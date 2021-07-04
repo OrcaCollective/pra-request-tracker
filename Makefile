@@ -16,6 +16,11 @@ RUN = $(DC) run --rm
 DJANGO = django
 MANAGE = $(RUN) $(DJANGO) python manage.py
 
+
+.env:
+	cp .env.example .env
+
+
 .PHONY: shell
 shell:
 	$(MANAGE) shell
@@ -88,7 +93,7 @@ coverage: test
 
 
 .PHONY: install
-install:
+install: .env
 	pip install -r requirements/local.txt
 	pre-commit install
 

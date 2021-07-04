@@ -39,3 +39,5 @@ EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+# use the default
+del DEFAULT_FILE_STORAGE  # noqa: F821

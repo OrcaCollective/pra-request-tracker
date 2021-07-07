@@ -6,18 +6,10 @@ volumes:
   production_traefik: {}
 
 services:
-  django:
-    build:
-      context: .
-      dockerfile: ./compose/production/django/Dockerfile
-    image: pra_request_tracker_production_django
-    depends_on:
-      - postgres
-      - redis
-    env_file:
-      - ./.envs/.production/.django
-      - ./.envs/.production/.postgres
-    command: /start
+  redis:
+    image: redis
+    expose:
+      - 6379
 
   postgres:
     build:
@@ -28,7 +20,22 @@ services:
       - production_postgres_data:/var/lib/postgresql/data:Z
       - production_postgres_data_backups:/backups:z
     env_file:
-      - ./.envs/.production/.postgres
+      - .env
+
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
+    image: pra_request_tracker_production_django
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - .env
+    command: /start
+    networks:
+      - protonmail
+      - default
 
   traefik:
     build:
@@ -40,8 +47,8 @@ services:
     volumes:
       - production_traefik:/etc/traefik/acme:z
     ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
+      - "6667:80"
 
-  redis:
-    image: redis:5.0
+networks:
+  protonmail:
+    external: True

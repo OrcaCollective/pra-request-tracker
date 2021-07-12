@@ -3,7 +3,6 @@ version: '3'
 volumes:
   production_postgres_data: {}
   production_postgres_data_backups: {}
-  production_traefik: {}
 
 services:
   redis:
@@ -36,18 +35,8 @@ services:
     networks:
       - protonmail
       - default
-
-  traefik:
-    build:
-      context: .
-      dockerfile: ./compose/production/traefik/Dockerfile
-    image: pra_request_tracker_production_traefik
-    depends_on:
-      - django
-    volumes:
-      - production_traefik:/etc/traefik/acme:z
     ports:
-      - "6667:80"
+      - "6667:5000"
 
 networks:
   protonmail:

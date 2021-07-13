@@ -3,6 +3,9 @@ version: '3'
 volumes:
   production_postgres_data: {}
   production_postgres_data_backups: {}
+  static_files:
+    name: pra-request-tracker-static
+
 
 services:
   redis:
@@ -37,6 +40,8 @@ services:
       - default
     ports:
       - "6667:5000"
+    volumes:
+      - static_files:/usr/src/app/pra_request_tracker/static
 
 networks:
   protonmail:

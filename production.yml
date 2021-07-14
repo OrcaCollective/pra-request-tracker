@@ -1,10 +1,8 @@
 version: '3'
 
 volumes:
-  production_postgres_data: {}
-  production_postgres_data_backups: {}
-  static_files:
-    name: pra-request-tracker-static
+  postgres_data:
+  static:
 
 
 services:
@@ -14,13 +12,9 @@ services:
       - 6379
 
   postgres:
-    build:
-      context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: pra_request_tracker_production_postgres
+    image: postgres:13
     volumes:
-      - production_postgres_data:/var/lib/postgresql/data:Z
-      - production_postgres_data_backups:/backups:z
+      - postgres_data:/var/lib/postgresql/data
     env_file:
       - .env
 
@@ -41,7 +35,7 @@ services:
     ports:
       - "6667:5000"
     volumes:
-      - static_files:/usr/src/app/pra_request_tracker/static
+      - static:/app/pra_request_tracker/static
 
 networks:
   protonmail:

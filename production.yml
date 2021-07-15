@@ -36,7 +36,3 @@ services:
       - "6667:5000"
     volumes:
       - static:/app/staticfiles
-
-networks:
-  protonmail:
-    external: True

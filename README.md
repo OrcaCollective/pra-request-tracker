@@ -35,6 +35,12 @@ make logs
 
 You can access the app at `localhost:8000`.
 
+In order to test file downloads locally you'll also need to add `minio` to your hosts file:
+
+```bash
+sudo sh -c 'echo "127.0.0.1       minio" >> /etc/hosts'
+```
+
 ### Setting up an admin user
 
 With the app running in a separate terminal, run the following:

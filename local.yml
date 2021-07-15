@@ -29,22 +29,6 @@ services:
     env_file:
       - .env
 
-  docs:
-    image: pra_request_tracker_local_docs
-    container_name: docs
-    build:
-      context: .
-      dockerfile: ./compose/local/docs/Dockerfile
-    env_file:
-      - .env
-    volumes:
-      - ./docs:/docs:z
-      - ./config:/app/config:z
-      - ./pra_request_tracker:/app/pra_request_tracker:z
-    ports:
-      - "7000:7000"
-    command: /start-docs
-
   minio:
     image: minio/minio
     volumes:

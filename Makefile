@@ -94,7 +94,7 @@ coverage: test
 
 .PHONY: install
 install: .env
-	pip install -r requirements/local.txt
+	pip install -r requirements-dev.txt
 	pre-commit install
 
 

@@ -15,7 +15,7 @@ services:
       - postgres
       - minio
     volumes:
-      - .:/app:z
+      - ./pra_request_tracker:/app:z
     env_file:
       - .env
     ports:

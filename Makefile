@@ -76,11 +76,6 @@ migrate: .env
 	$(MANAGE) migrate
 
 
-.PHONY: types
-types: .env
-	$(RUN) $(DJANGO) mypy pra_request_tracker
-
-
 .PHONY: test
 test: .env
 	$(RUN) $(DJANGO) coverage run -m pytest
@@ -94,7 +89,7 @@ coverage: test
 
 .PHONY: install
 install: .env
-	pip install -r requirements/local.txt
+	pip install -r requirements-dev.txt
 	pre-commit install
 
 

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Record Request: {{ object.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>{{ object.title }}</h1>
+      <strong>Tracking #:</strong> {{ object.tracking_number }}
+      <br />
+      <strong>Status:</strong> {{ object.status_label }}
+      <br />
+      <strong>Last updated:</strong> {{ object.updated_at.date }}
+      <br />
+      <strong>Filed at:</strong> {{ object.filed_at }}
+      <br />
+      <strong>Est. response:</strong> {{ object.estimated_response_date }}
+      <br />
+      <strong>Last communication:</strong> {{ object.last_communication_date }}
+      <p>{{ object.description }}</p>
+
+      {% if object.files %}
+        <strong>Attachments:</strong>
+      {% endif %}
+      {% for file in object.files %}
+        <ul>
+          <li>
+            <a href="{{ file.file.url }}">{{ file.title }}</a>
+          </li>
+        </ul>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+{% endblock content %}

@@ -35,8 +35,4 @@ services:
     ports:
       - "6667:5000"
     volumes:
-      - static:/app/pra_request_tracker/static
-
-networks:
-  protonmail:
-    external: True
+      - static:/app/staticfiles

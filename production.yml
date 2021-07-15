@@ -30,7 +30,6 @@ services:
       - .env
     command: /start
     networks:
-      - protonmail
       - default
     ports:
       - "6667:5000"

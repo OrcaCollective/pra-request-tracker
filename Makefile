@@ -14,7 +14,7 @@ FILE ?= local.yml
 DC = $(DOCKER_COMPOSE) --file=$(FILE)
 RUN = $(DC) run --rm
 DJANGO = django
-MANAGE = $(RUN) $(DJANGO) python pra_request_tracker/manage.py
+MANAGE = $(RUN) $(DJANGO) python manage.py
 
 
 .env:
@@ -74,11 +74,6 @@ makemigrations: .env
 .PHONY: migration
 migrate: .env
 	$(MANAGE) migrate
-
-
-.PHONY: types
-types: .env
-	$(RUN) $(DJANGO) mypy pra_request_tracker
 
 
 .PHONY: test

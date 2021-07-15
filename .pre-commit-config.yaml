@@ -84,11 +84,3 @@ repos:
         - id: black
           args:
             - --safe
-
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.902
-    hooks:
-        - id: mypy
-          additional_dependencies:
-            - django-stubs==1.8.0
-            - django-environ==0.4.5

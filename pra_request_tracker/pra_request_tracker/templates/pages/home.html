@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron mt-4">
+  <h1 class="display-4">Public Records Act Request Tracker</h1>
+  <p class="lead">
+    This website is used to track <a href="https://apps.leg.wa.gov/RCW/default.aspx?cite=42.56" rel="noopener noreferrer" target="_blank">Public Records Act requests</a>. It was created by the <a href="https://twitter.com/TechBlocSEA" rel="noopener noreferrer" target="_blank">Seattle Tech Bloc</a>.
+  </p>
+  <a class="btn btn-primary btn-lg" href="{% url 'record_requests:agencies' %}" role="button">See the public entites we cover</a>
+</div>
+{% endblock %}

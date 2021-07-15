@@ -16,15 +16,6 @@ jobs:
       - name: Run pre-commit checks
         run: make lint
 
-  mypy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      -
-        name: Run mypy
-        run: make types
-
   pytest:
     runs-on: ubuntu-latest
 

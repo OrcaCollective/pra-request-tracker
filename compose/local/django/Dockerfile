@@ -28,6 +28,8 @@ COPY ./compose/local/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 
+COPY pytest.ini /pytest.ini
+
 WORKDIR /app
 
 ENTRYPOINT ["/entrypoint"]

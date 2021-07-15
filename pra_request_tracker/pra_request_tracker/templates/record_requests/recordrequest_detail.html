@@ -28,7 +28,7 @@
       {% for file in object.files %}
         <ul>
           <li>
-            <a href="{{ file.file }}">{{ file.title }}</a>
+            <a href="{{ file.file.url }}">{{ file.title }}</a>
           </li>
         </ul>
       {% endfor %}

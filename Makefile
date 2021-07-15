@@ -14,7 +14,7 @@ FILE ?= local.yml
 DC = $(DOCKER_COMPOSE) --file=$(FILE)
 RUN = $(DC) run --rm
 DJANGO = django
-MANAGE = $(RUN) $(DJANGO) python manage.py
+MANAGE = $(RUN) $(DJANGO) python pra_request_tracker/manage.py
 
 
 .env:

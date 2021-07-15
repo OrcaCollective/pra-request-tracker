@@ -31,6 +31,8 @@ RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 COPY --chown=django:django . /app
 
+RUN mkdir -p /app/staticfiles && chown django /app/staticfiles
+
 USER django
 
 WORKDIR /app

@@ -29,7 +29,7 @@ RUN chmod +x /entrypoint
 COPY --chown=django:django ./compose/production/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
-COPY --chown=django:django . /app
+COPY --chown=django:django ./pra_request_tracker /app
 
 RUN mkdir -p /app/staticfiles && chown django /app/staticfiles
 

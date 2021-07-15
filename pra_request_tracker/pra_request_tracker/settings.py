@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_extensions",
     "pra_request_tracker.users",
     "pra_request_tracker.record_requests",
 ]
@@ -122,6 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = str(BASE_DIR / "staticfiles")
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     APPS_DIR / "static",

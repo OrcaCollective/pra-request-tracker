@@ -25,4 +25,5 @@ urlpatterns = [
     ),
     path("admin/", admin.site.urls),
     path("record-requests/", include("pra_request_tracker.record_requests.urls")),
+    path("accounts/", include("allauth.urls")),
 ]

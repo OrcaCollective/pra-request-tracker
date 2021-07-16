@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "crispy_forms",
+    "allauth",
+    "allauth.account",
     "pra_request_tracker.users",
     "pra_request_tracker.record_requests",
 ]
@@ -73,6 +77,8 @@ TEMPLATES = [
         },
     },
 ]
+
+SITE_ID = 1
 
 WSGI_APPLICATION = "pra_request_tracker.wsgi.application"
 

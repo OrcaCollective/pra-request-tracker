@@ -32,6 +32,6 @@ services:
     networks:
       - default
     ports:
-      - "6667:5000"
+      - "8011:5000"
     volumes:
       - static:/app/staticfiles

@@ -96,3 +96,8 @@ install: .env
 .PHONY: lint
 lint:
 	pre-commit run --all-files
+
+
+.PHONY: attach-django
+attach-django:
+	docker attach $(DJANGO)

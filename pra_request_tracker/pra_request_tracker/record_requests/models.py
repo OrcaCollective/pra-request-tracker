@@ -48,14 +48,14 @@ class RecordRequest(BaseModel):
         INSTALLMENTS = "install", "Installments"
 
     requester = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=Status.choices, db_index=True)
     title = models.CharField(max_length=256)
     tracking_number = models.CharField(max_length=256, db_index=True, null=True)
-    filed_at = models.DateField(null=True)
-    estimated_response_date = models.DateField(null=True)
-    last_communication_date = models.DateField(null=True)
+    filed_at = models.DateField(null=True, blank=True)
+    estimated_response_date = models.DateField(null=True, blank=True)
+    last_communication_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return f"RecordRequest({self.id}) {self.title} to {self.agency} with status {self.status}"
@@ -82,8 +82,13 @@ class RecordRequestFile(BaseModel):
         on_delete=models.CASCADE,
     )
     file = models.FileField()
-    title = models.CharField(max_length=256)
-    description = models.TextField(null=True)
+    title = models.CharField(max_length=256, null=True)
+    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f"RecordRequestFile({self.id}) {self.title} for {self.request}"
+
+    def save(self, *args, **kwargs):
+        if not self.title:
+            self.title = self.file.name
+        super().save(*args, **kwargs)

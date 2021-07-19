@@ -55,3 +55,10 @@ class RecordRequestFileTestCase(TestCase):
         file.delete()
 
         self.assertIsNone(RecordRequestFile.objects.filter(pk=pk).first())
+
+    def test_auto_name(self):
+        file = RecordRequestFileFactory.create()
+        file.title = None
+        file.save()
+
+        self.assertEqual(file.file.name, file.title)

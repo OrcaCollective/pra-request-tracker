@@ -82,7 +82,7 @@ class RecordRequestFile(BaseModel):
         on_delete=models.CASCADE,
     )
     file = models.FileField()
-    title = models.CharField(max_length=256, null=True)
+    title = models.CharField(max_length=256, blank=True)
     description = models.TextField(null=True, blank=True)
 
     def __str__(self):

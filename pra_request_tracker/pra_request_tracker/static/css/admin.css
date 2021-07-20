@@ -1,0 +1,7 @@
+.custom-action {
+    white-space: nowrap;
+}
+
+.custom-action:not(:first-child) {
+    margin-left: 1em;
+}

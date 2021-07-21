@@ -87,6 +87,10 @@ class Correspondence(BaseModel):
     def __str__(self):
         return f"Correspondence({self.pk}) {self.subject} for {self.request}"
 
+    @property
+    def fromm(self):
+        return getattr(self, "from")
+
 
 class RecordRequestFile(BaseModel):
     request = models.ForeignKey(

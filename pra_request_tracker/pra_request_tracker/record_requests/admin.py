@@ -73,16 +73,27 @@ class CorrespondenceAdmin(admin.ModelAdmin):
     search_fields = ("subject", "request", "to", "from")
 
     def correspondence_actions(self, obj):
-        query = QueryDict(mutable=True)
-        query.update(
+        file_query = QueryDict(mutable=True)
+        file_query.update(
             {
                 "request": obj.request.pk,
                 "correspondence": obj.pk,
             }
         )
+        reply_query = QueryDict(mutable=True)
+        reply_query.update(
+            {
+                "request": obj.request.pk,
+                "to": obj.fromm,
+                "from": obj.to,
+                "subject": f"RE: {obj.subject}",
+            }
+        )
         return format_html(
-            '<a class="button custom-action" href="{}">Attach file</a>',
-            f'{reverse("admin:record_requests_recordrequestfile_add")}?{query.urlencode()}',
+            '<a class="button custom-action" href="{}">Attach file</a>'
+            '<a class="button custom-action" href="{}">Add reply</a>',
+            f'{reverse("admin:record_requests_recordrequestfile_add")}?{file_query.urlencode()}',
+            f'{reverse("admin:record_requests_correspondence_add")}?{reply_query.urlencode()}',
         )
 
 

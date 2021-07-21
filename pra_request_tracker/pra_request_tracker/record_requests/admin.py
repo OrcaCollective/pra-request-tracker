@@ -96,6 +96,9 @@ class CorrespondenceAdmin(admin.ModelAdmin):
             f'{reverse("admin:record_requests_correspondence_add")}?{reply_query.urlencode()}',
         )
 
+    correspondence_actions.short_description = "Actions"
+    correspondence_actions.allow_tags = True
+
 
 @admin.register(RecordRequestFile)
 class RecordRequestFileAdmin(admin.ModelAdmin):

@@ -3,8 +3,13 @@ from django.http import QueryDict
 from django.urls import reverse
 from django.utils.html import format_html
 
-from .forms import AgencyForm, RecordRequestFileForm, RecordRequestForm
-from .models import Agency, RecordRequest, RecordRequestFile
+from .forms import (
+    AgencyForm,
+    CorrespondenceForm,
+    RecordRequestFileForm,
+    RecordRequestForm,
+)
+from .models import Agency, Correspondence, RecordRequest, RecordRequestFile
 
 
 @admin.register(Agency)
@@ -49,17 +54,40 @@ class RecordRequestAdmin(admin.ModelAdmin):
         query.update({"request": obj.pk})
         return format_html(
             '<a class="button custom-action" href="{}">Add file</a>'
-            '<a class="button custom-action" href="{}">View files</a>',
+            '<a class="button custom-action" href="{}">View files</a>'
+            '<a class="button custom-action" href="{}">Add correspondence</a>',
             f'{reverse("admin:record_requests_recordrequestfile_add")}?{query.urlencode()}',
             f'{reverse("admin:record_requests_recordrequestfile_changelist")}?{query.urlencode()}',
+            f'{reverse("admin:record_requests_correspondence_add")}?{query.urlencode()}',
         )
 
     record_request_actions.short_description = "Actions"
     record_request_actions.allow_tags = True
 
 
+@admin.register(Correspondence)
+class CorrespondenceAdmin(admin.ModelAdmin):
+    form = CorrespondenceForm
+    list_display = ("request", "correspondence_actions", "date")
+    autocomplete_fields = ("request",)
+    search_fields = ("subject", "request", "to", "from")
+
+    def correspondence_actions(self, obj):
+        query = QueryDict(mutable=True)
+        query.update(
+            {
+                "request": obj.request.pk,
+                "correspondence": obj.pk,
+            }
+        )
+        return format_html(
+            '<a class="button custom-action" href="{}">Attach file</a>',
+            f'{reverse("admin:record_requests_recordrequestfile_add")}?{query.urlencode()}',
+        )
+
+
 @admin.register(RecordRequestFile)
 class RecordRequestFileAdmin(admin.ModelAdmin):
     form = RecordRequestFileForm
     list_display = ("title", "request")
-    autocomplete_fields = ("request",)
+    autocomplete_fields = ("request", "correspondence")

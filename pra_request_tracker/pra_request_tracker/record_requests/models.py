@@ -76,6 +76,18 @@ class RecordRequest(BaseModel):
         return self.recordrequestfile_set.all()
 
 
+class Correspondence(BaseModel):
+    request = models.ForeignKey(RecordRequest, on_delete=models.CASCADE)
+    from_ = models.CharField(max_length=256, name="from")
+    to = models.CharField(max_length=256)
+    subject = models.CharField(max_length=256)
+    body = models.TextField()
+    date = models.DateTimeField()
+
+    def __str__(self):
+        return f"Correspondence({self.pk}) {self.subject} for {self.request}"
+
+
 class RecordRequestFile(BaseModel):
     request = models.ForeignKey(
         RecordRequest,
@@ -84,6 +96,9 @@ class RecordRequestFile(BaseModel):
     file = models.FileField()
     title = models.CharField(max_length=256, blank=True)
     description = models.TextField(null=True, blank=True)
+    correspondence = models.ForeignKey(
+        Correspondence, unique=False, null=True, blank=True, on_delete=models.SET_NULL
+    )
 
     def __str__(self):
         return f"RecordRequestFile({self.id}) {self.title} for {self.request}"

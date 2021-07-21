@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Agency, RecordRequest, RecordRequestFile
+from .models import Agency, Correspondence, RecordRequest, RecordRequestFile
 
 
 class AgencyForm(forms.ModelForm):
@@ -28,4 +28,10 @@ class RecordRequestForm(forms.ModelForm):
 class RecordRequestFileForm(forms.ModelForm):
     class Meta:
         model = RecordRequestFile
-        fields = ("request", "title", "description", "file")
+        fields = ("request", "title", "description", "file", "correspondence")
+
+
+class CorrespondenceForm(forms.ModelForm):
+    class Meta:
+        model = Correspondence
+        fields = ("request", "from", "to", "date", "subject", "body")

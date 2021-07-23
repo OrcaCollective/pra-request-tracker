@@ -1,7 +1,12 @@
 from django.test import TestCase
 
 from ..models import Agency, RecordRequest, RecordRequestFile
-from .factories import AgencyFactory, RecordRequestFactory, RecordRequestFileFactory
+from .factories import (
+    AgencyFactory,
+    CorrespondenceFactory,
+    RecordRequestFactory,
+    RecordRequestFileFactory,
+)
 
 
 class AgencyTestCase(TestCase):
@@ -46,6 +51,28 @@ class RecordRequestTestCase(TestCase):
             files.append(RecordRequestFileFactory.create(request=record_request))
 
         self.assertEqual(files, list(record_request.files))
+
+    def test_record_request_correspondences(self):
+        record_request = RecordRequestFactory.create()
+
+        correspondences = []
+        for _ in range(3):
+            correspondences.append(CorrespondenceFactory.create(request=record_request))
+
+        self.assertEqual(correspondences, list(record_request.correspondences))
+
+    def test_record_request_correspondences_prefetch_files(self):
+        record_request = RecordRequestFactory.create()
+
+        for _ in range(3):
+            correspondence = CorrespondenceFactory.create(request=record_request)
+            for _ in range(2):
+                RecordRequestFileFactory.create(correspondence=correspondence)
+
+        with self.assertNumQueries(2):
+            record_request.correspondences[0].recordrequestfile_set.all()
+            record_request.correspondences[1].recordrequestfile_set.all()
+            record_request.correspondences[2].recordrequestfile_set.all()
 
 
 class RecordRequestFileTestCase(TestCase):

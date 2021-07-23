@@ -68,7 +68,7 @@ class RecordRequestAdmin(admin.ModelAdmin):
 @admin.register(Correspondence)
 class CorrespondenceAdmin(admin.ModelAdmin):
     form = CorrespondenceForm
-    list_display = ("request", "correspondence_actions", "date")
+    list_display = ("subject", "request", "correspondence_actions", "date")
     autocomplete_fields = ("request",)
     search_fields = ("subject", "request", "to", "from")
 
@@ -84,8 +84,8 @@ class CorrespondenceAdmin(admin.ModelAdmin):
         reply_query.update(
             {
                 "request": obj.request.pk,
-                "to": obj.fromm,
-                "from": obj.to,
+                "to_address": obj.from_address,
+                "from_address": obj.to_address,
                 "subject": f"RE: {obj.subject}",
             }
         )

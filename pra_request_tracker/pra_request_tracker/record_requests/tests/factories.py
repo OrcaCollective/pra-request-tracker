@@ -2,7 +2,7 @@ import factory
 from factory import Faker
 from factory.django import DjangoModelFactory
 
-from ..models import Agency, RecordRequest, RecordRequestFile
+from ..models import Agency, Correspondence, RecordRequest, RecordRequestFile
 
 
 class AgencyFactory(DjangoModelFactory):
@@ -17,6 +17,15 @@ class RecordRequestFactory(DjangoModelFactory):
         model = RecordRequest
 
     agency = factory.SubFactory(AgencyFactory)
+
+
+class CorrespondenceFactory(DjangoModelFactory):
+    class Meta:
+        model = Correspondence
+
+    to_address = factory.Faker("email")
+    from_address = factory.Faker("email")
+    request = factory.SubFactory(RecordRequestFactory)
 
 
 class RecordRequestFileFactory(DjangoModelFactory):

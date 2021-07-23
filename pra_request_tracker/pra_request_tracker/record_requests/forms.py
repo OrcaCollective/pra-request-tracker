@@ -34,4 +34,4 @@ class RecordRequestFileForm(forms.ModelForm):
 class CorrespondenceForm(forms.ModelForm):
     class Meta:
         model = Correspondence
-        fields = ("request", "from", "to", "date", "subject", "body")
+        fields = ("request", "from_address", "to_address", "date", "subject", "body")

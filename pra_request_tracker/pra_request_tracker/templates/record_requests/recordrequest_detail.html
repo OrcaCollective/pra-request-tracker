@@ -32,6 +32,36 @@
                     </li>
                 </ul>
             {% endfor %}
+
+            {% for correspondence in object.correspondences %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <strong>{{ correspondence.subject }}</strong>
+                    <p>
+                        from: {{ correspondence.from_address }}
+                        <br />
+                        to: {{ correspondence.to_address }}
+                    </p>
+                </div>
+                <div class="card-body">
+                    <pre class="card-text">
+                        {{ correspondence.body }}
+                    </pre>
+                </div>
+                {% if correspondence.recordrequestfile_set.all %}
+                <div class="card-footer">
+                    <p><strong>Attachments</strong></p>
+                    <ul>
+                        {% for file in correspondence.recordrequestfile_set.all %}
+                            <li>
+                                <a href="{{ file.file.url }}">{{ file.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+              </div>
+            {% endfor %}
         </div>
     </div>
 

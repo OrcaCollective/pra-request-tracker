@@ -83,8 +83,7 @@ class RecordRequest(BaseModel):
 
 class Correspondence(BaseModel):
     request = models.ForeignKey(RecordRequest, on_delete=models.CASCADE)
-    from_address = models.CharField(max_length=256)
-    to_address = models.CharField(max_length=256)
+    contact_address = models.EmailField()
     subject = models.CharField(max_length=256)
     body = models.TextField()
     date = models.DateTimeField(blank=True, default=timezone.now)

@@ -23,8 +23,7 @@ class CorrespondenceFactory(DjangoModelFactory):
     class Meta:
         model = Correspondence
 
-    to_address = factory.Faker("email")
-    from_address = factory.Faker("email")
+    contact_address = factory.Faker("email")
     request = factory.SubFactory(RecordRequestFactory)
 
 

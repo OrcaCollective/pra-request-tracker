@@ -38,13 +38,11 @@
                 <div class="card-header">
                     <strong>{{ correspondence.subject }}</strong>
                     <p>
-                        from: {{ correspondence.from_address }}
-                        <br />
-                        to: {{ correspondence.to_address }}
+                        contact: {{ correspondence.contact_address }}
                     </p>
                 </div>
                 <div class="card-body">
-                    <pre class="card-text">
+                    <pre class="card-text correspondence-body">
                         {{ correspondence.body }}
                     </pre>
                 </div>

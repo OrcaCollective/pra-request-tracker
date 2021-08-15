@@ -84,8 +84,7 @@ class CorrespondenceAdmin(admin.ModelAdmin):
         reply_query.update(
             {
                 "request": obj.request.pk,
-                "to_address": obj.from_address,
-                "from_address": obj.to_address,
+                "contact_address": obj.contact_address,
                 "subject": f"RE: {obj.subject}",
             }
         )

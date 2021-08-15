@@ -87,16 +87,10 @@ class Correspondence(BaseModel):
     to_address = models.CharField(max_length=256)
     subject = models.CharField(max_length=256)
     body = models.TextField()
-    date = models.DateTimeField(blank=True)
+    date = models.DateTimeField(blank=True, default=timezone.now)
 
     def __str__(self):
         return f"Correspondence({self.pk}) {self.subject} for {self.request}"
-
-    def save(self, *args, **kwargs):
-        if not self.date:
-            self.date = timezone.now()
-
-        super().save(*args, **kwargs)
 
 
 class RecordRequestFile(BaseModel):

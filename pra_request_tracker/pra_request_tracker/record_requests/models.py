@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.utils.functional import cached_property
 
 from pra_request_tracker.users.models import User
@@ -75,6 +76,21 @@ class RecordRequest(BaseModel):
     def files(self):
         return self.recordrequestfile_set.all()
 
+    @cached_property
+    def correspondences(self):
+        return list(self.correspondence_set.prefetch_related("recordrequestfile_set"))
+
+
+class Correspondence(BaseModel):
+    request = models.ForeignKey(RecordRequest, on_delete=models.CASCADE)
+    contact_address = models.EmailField()
+    subject = models.CharField(max_length=256)
+    body = models.TextField()
+    date = models.DateTimeField(blank=True, default=timezone.now)
+
+    def __str__(self):
+        return f"Correspondence({self.pk}) {self.subject} for {self.request}"
+
 
 class RecordRequestFile(BaseModel):
     request = models.ForeignKey(
@@ -84,6 +100,9 @@ class RecordRequestFile(BaseModel):
     file = models.FileField()
     title = models.CharField(max_length=256, blank=True)
     description = models.TextField(null=True, blank=True)
+    correspondence = models.ForeignKey(
+        Correspondence, unique=False, null=True, blank=True, on_delete=models.SET_NULL
+    )
 
     def __str__(self):
         return f"RecordRequestFile({self.id}) {self.title} for {self.request}"

@@ -11,10 +11,10 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-Then to install dependencies and initalize tooling:
+Then to install dependencies and initialize tooling:
 
 ```bash
-make install
+just install
 ```
 
 ### Running the app locally for development
@@ -22,7 +22,7 @@ make install
 To run the app locally, run the following command:
 
 ```bash
-make up
+just up
 ```
 
 This will spin up all the necessary services for running the application. It will also automatically restart the app when changes are made via volume mounts.
@@ -30,7 +30,7 @@ This will spin up all the necessary services for running the application. It wil
 To see the logs:
 
 ```bash
-make logs
+just logs
 ```
 
 You can access the app at `localhost:8000`.
@@ -46,10 +46,10 @@ sudo sh -c 'echo "127.0.0.1       minio" >> /etc/hosts'
 With the app running in a separate terminal, run the following:
 
 ```bash
-make createsuperuser
+just createsuperuser
 ```
 
-Follow the directions in your console to create the super user. Once you have filled out the information required and the console has output `Superuser created successfully.` you will now need to login to the web console. Once you log in the system will attempt to send you a verification email, which won't make it out of the local system. You'll need to run `make logs` to see the logs.
+Follow the directions in your console to create the super user. Once you have filled out the information required and the console has output `Superuser created successfully.` you will now need to login to the web console. Once you log in the system will attempt to send you a verification email, which won't make it out of the local system. You'll need to run `just logs` to see the logs.
 
 In the log stream, find the `django` service's output with the email, it will look something like this:
 
@@ -82,22 +82,16 @@ Access the django admin as usual by navigating to `localhost:8000/admin`.
 
 Just do it through the website's UI and check for the email as described in the previous section. Follow the same process to confirm the email on the account.
 
-### Running type checks
-
-```bash
-make types
-```
-
 ### Running unit tests
 
 ```bash
-make test
+just test
 ```
 
 To view test coverage in your browser:
 
 ```bash
-make coverage
+just coverage
 ```
 
 ### Linting
@@ -105,7 +99,7 @@ make coverage
 To lint all the files:
 
 ```bash
-make lint
+just lint
 ```
 
 ### Migrations
@@ -113,19 +107,19 @@ make lint
 To create migrations based on model changes:
 
 ```bash
-make makemigrations
+just makemigrations
 ```
 
 Then to migrate your local environment:
 
 ```bash
-make migrate
+just migrate
 ```
 
 ### If your local environment becomes unrecoverable
 
 ```bash
-make freshstart
+just freshstart
 ```
 
 ## Deploying the application
